@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>372 Runner</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="embersCanvas"></canvas>
+
+  <h1>372 Runner</h1>
+  <p>Use ← and → to move. Choose your character:</p>
+
+  <div class="char-select" id="charSelect">
+    <img src="img/IdleSp1.png" data-index="1" />
+    <img src="img/IdleSp2.png" data-index="2" />
+    <img src="img/IdleSp3.png" data-index="3" />
+    <img src="img/IdleSp4.png" data-index="4" />
+  </div>
+
+  <div id="canvasWrapper">
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <div id="uiLayer">
+      <div id="stats">
+        Time Survived: <span id="time">0.0</span>s |
+        Best Time: <span id="bestTime">0.0</span>s
+      </div>
+      <button id="restartBtn">Start</button>
+      <div id="countdown" style="display:none; font-size: 1.5rem; margin-top: 10px;"></div>
+    </div>
+  </div>
+
+  <script>
+    // AUDIO
+    const countdownBeep = new Audio('audio/Count.wav');
+    const backgroundMusic = new Audio('audio/music.wav');
+    const deathSound = new Audio('audio/death.wav');
+
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.5;
+
+    // EMBERS BACKGROUND
+    const embersCanvas = document.getElementById("embersCanvas");
+    const embersCtx = embersCanvas.getContext("2d");
+
+    function resizeEmbersCanvas() {
+      embersCanvas.width = window.innerWidth;
+      embersCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeEmbersCanvas);
+    resizeEmbersCanvas();
+
+    const emberParticles = [];
+    for (let i = 0; i < 60; i++) {
+      emberParticles.push({
+        x: Math.random() * embersCanvas.width,
+        y: Math.random() * -embersCanvas.height,
+        size: Math.random() * 2 + 1,
+        speed: Math.random() * 1 + 0.5,
+        color: Math.random() > 0.5 ? "#ff9933" : "#ffcc66"
+      });
+    }
+
+    function drawEmbers() {
+      embersCtx.clearRect(0, 0, embersCanvas.width, embersCanvas.height);
+      emberParticles.forEach(p => {
+        embersCtx.fillStyle = p.color;
+        embersCtx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+        if (p.y > embersCanvas.height) {
+          p.y = Math.random() * -100;
+          p.x = Math.random() * embersCanvas.width;
+        }
+      });
+    }
+
+    // GAME CANVAS
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const timeDisplay = document.getElementById("time");
+    const bestTimeDisplay = document.getElementById("bestTime");
+    const restartBtn = document.getElementById("restartBtn");
+    const countdown = document.getElementById("countdown");
+
+    let bestTime = localStorage.getItem("bestTime") || 0;
+    bestTimeDisplay.textContent = parseFloat(bestTime).toFixed(1);
+
+    const backgroundImage = new Image();
+    backgroundImage.src = "img/Volcano1.png";
+
+    let selectedIndex = 1;
+    const charSelect = document.getElementById("charSelect");
+    const charOptions = charSelect.querySelectorAll("img");
+
+    const spriteCache = {
+      IdleSp: null,
+      Run1Sp: null,
+      Run2Sp: null
+    };
+
+    function loadSpriteSet(index) {
+      spriteCache.IdleSp = new Image();
+      spriteCache.IdleSp.src = `img/IdleSp${index}.png`;
+
+      spriteCache.Run1Sp = new Image();
+      spriteCache.Run1Sp.src = `img/Run1Sp${index}.png`;
+
+      spriteCache.Run2Sp = new Image();
+      spriteCache.Run2Sp.src = `img/Run2Sp${index}.png`;
+    }
+
+    loadSpriteSet(selectedIndex);
+    charOptions[0].classList.add("selected");
+
+    charOptions.forEach(img => {
+      img.addEventListener("click", () => {
+        selectedIndex = img.dataset.index;
+        charOptions.forEach(i => i.classList.remove("selected"));
+        img.classList.add("selected");
+        loadSpriteSet(selectedIndex);
+      });
+    });
+
+    const player = {
+      x: canvas.width / 2 - 40,
+      y: canvas.height - 100,
+      width: 80,
+      height: 80,
+      speed: 6,
+      frameTimer: 0
+    };
+
+    let gameStarted = false;
+    let keys = {};
+    let obstacles = [];
+    let frameCount = 0;
+    let startTime = null;
+    let currentTime = 0;
+    let gameOver = false;
+    let fallSpeed = 2;
+    let trailParticles = [];
+
+    function startGame() {
+      player.x = canvas.width / 2 - 40;
+      obstacles = [];
+      frameCount = 0;
+      startTime = performance.now();
+      currentTime = 0;
+      gameStarted = true;
+      gameOver = false;
+      fallSpeed = 2;
+      trailParticles = [];
+      timeDisplay.textContent = "0.0";
+      bestTimeDisplay.textContent = parseFloat(bestTime).toFixed(1);
+      loadSpriteSet(selectedIndex);
+
+      backgroundMusic.currentTime = 0;
+      backgroundMusic.play();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    restartBtn.addEventListener("click", () => {
+      restartBtn.style.display = "none";
+      charSelect.style.display = "none";
+      countdown.style.display = "block";
+
+      let countdownTime = 3;
+      countdown.textContent = countdownTime;
+
+      countdownBeep.currentTime = 0;
+      countdownBeep.play();
+
+      const countdownInterval = setInterval(() => {
+        countdownTime--;
+        if (countdownTime > 0) {
+          countdown.textContent = countdownTime;
+        } else {
+          clearInterval(countdownInterval);
+          countdown.textContent = "Go!";
+          setTimeout(() => {
+            countdown.style.display = "none";
+            startGame();
+          }, 1000);
+        }
+      }, 1000);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      keys[e.code] = true;
+    });
+
+    document.addEventListener("keyup", (e) => {
+      keys[e.code] = false;
+    });
+
+    function drawBackground() {
+      ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    }
+
+    function drawTrail() {
+      for (let i = 0; i < trailParticles.length; i++) {
+        const p = trailParticles[i];
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        ctx.globalAlpha = 1.0;
+        p.y += 0.5;
+        p.size *= 0.96;
+        p.life -= 0.02;
+      }
+      trailParticles = trailParticles.filter(p => p.life > 0);
+    }
+
+    function drawPlayer() {
+      let sprite = spriteCache.IdleSp;
+      if (gameStarted) {
+        player.frameTimer++;
+        sprite = player.frameTimer % 20 < 10 ? spriteCache.Run1Sp : spriteCache.Run2Sp;
+      }
+      ctx.drawImage(sprite, player.x, player.y, player.width, player.height);
+    }
+
+    function updatePlayer() {
+      let isMoving = false;
+
+      if (keys["ArrowLeft"] && player.x > 0) {
+        player.x -= player.speed;
+        isMoving = true;
+      }
+      if (keys["ArrowRight"] && player.x < canvas.width - player.width) {
+        player.x += player.speed;
+        isMoving = true;
+      }
+
+      if (gameStarted && isMoving) {
+        trailParticles.push({
+          x: player.x + player.width / 2,
+          y: player.y + player.height,
+          size: Math.random() * 4 + 2,
+          life: 1.0,
+          color: Math.random() > 0.5 ? "#ff9933" : "#ffcc66"
+        });
+
+        if (trailParticles.length > 50) {
+          trailParticles.shift();
+        }
+      }
+    }
+
+    function spawnObstacle() {
+      if (frameCount % 60 === 0) {
+        const size = 20;
+        const x = Math.random() * (canvas.width - size);
+        const colors = ["#ff9933", "#ffcc66"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        obstacles.push({ x, y: -size, width: size, height: size, color });
+      }
+    }
+
+    function updateObstacles() {
+      for (let i = 0; i < obstacles.length; i++) {
+        obstacles[i].y += fallSpeed;
+
+        if (
+          obstacles[i].x < player.x + player.width &&
+          obstacles[i].x + obstacles[i].width > player.x &&
+          obstacles[i].y < player.y + player.height &&
+          obstacles[i].y + obstacles[i].height > player.y
+        ) {
+          backgroundMusic.pause();
+          backgroundMusic.currentTime = 0;
+          deathSound.currentTime = 0;
+          deathSound.play();
+          gameOver = true;
+          gameStarted = false;
+          restartBtn.style.display = "inline-block";
+          return;
+        }
+
+        if (obstacles[i].y > canvas.height) {
+          obstacles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function drawObstacles() {
+      obstacles.forEach(ob => {
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = ob.color;
+        ctx.fillStyle = ob.color;
+        ctx.fillRect(ob.x, ob.y, ob.width, ob.height);
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = "transparent";
+      });
+    }
+
+    function gameLoop(timestamp) {
+      if (gameOver) return;
+
+      frameCount++;
+      fallSpeed += 0.0002;
+
+      drawEmbers();
+      drawBackground();
+      drawTrail();
+
+      if (gameStarted) {
+        updatePlayer();
+        spawnObstacle();
+        updateObstacles();
+
+        if (startTime) {
+          currentTime = ((timestamp - startTime) / 1000).toFixed(1);
+          timeDisplay.textContent = currentTime;
+
+          if (parseFloat(currentTime) > parseFloat(bestTime)) {
+            bestTime = currentTime;
+            localStorage.setItem("bestTime", bestTime);
+            bestTimeDisplay.textContent = parseFloat(bestTime).toFixed(1);
+          }
+        }
+      }
+
+      drawObstacles();
+      drawPlayer();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>

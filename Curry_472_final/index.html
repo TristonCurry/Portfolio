@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character set -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive -->
+    <title>Swango Story</title>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script> <!-- GSAP core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script> <!-- GSAP ScrollTrigger -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery core -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script> <!-- jQuery UI -->
+
+    <!-- Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet"> <!-- Font -->
+    <link rel="stylesheet" href="style.css"> <!-- Stylesheet -->
+</head>
+<body>
+
+<!-- Heart Monitor Loading Screen -->
+<div id="loading-screen">
+    <div class="ekg-container">
+      <svg viewBox="0 0 500 100" class="ekg-svg">
+        <polyline
+          points="0,50 30,50 40,10 50,90 60,50 100,50 130,50 140,20 150,50 500,50"
+          fill="none"
+          stroke="rgba(127, 4, 4, 0.8)"
+          stroke-width="2"
+          class="ekg-path"
+        />
+      </svg>
+      <div class="loading-text">Monitoring...</div>
+    </div>
+  </div>
+  
+  
+
+<!-- Main Title -->
+<h1 id="title">NEWS DAILY</h1>
+
+<div class="fancy-divider"></div> <!-- Decorative divider -->
+
+<div class="wrapper"> <!-- Main wrapper -->
+
+    <!-- Frame 1 -->
+    <section class="p2" id="frame1">
+        <h1>MICHEAL SWANGO</h1>
+        <h2>By: Triston Curry</h2>
+        <p>Few names in medical history strike fear quite like that of Dr. Micheal Swango. A former physician turned serial killer, Swango’s chilling crimes spanned decades, leaving a trail of mysterious patient deaths across the United States, Africa, and beyond. This is a story of deception, malpractice, and murder, all hidden behind a doctor's white coat.</p>
+        <img src="img/Pic1.jpg" alt="Image 1" id="Pic1"> <!-- Intro image -->
+    </section>
+
+    <!-- Frame 2 -->
+    <section class="p2" id="frame2">
+        <div class="content"> <!-- Flex container -->
+            <img src="img/Pic2.png" alt="Image 2" id="Pic2"> <!-- Side image -->
+            <div class="text">
+                <h1>EARLY LIFE</h1>
+                <p>Micheal was a new medical student at Southern Illinois University and also worked as an ambulance assistant on the side. Swango was no normal student, as mysterious events started to surround him.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frame 3 -->
+    <section class="p3" id="frame3">
+        <h1>FAKING CHECKUPS</h1>
+        <p>Swango was caught faking OBGYN checkups and reports, often making up critical information regarding his patients. His patients rarely got better, and in some cases, they seemed to get worse or even pass away under his care.</p>
+
+        <div class="form-container"> <!-- Form mimic -->
+            <img src="img/Pic3.png" id="pic3" /> <!-- Paper image -->
+            <div class="form-text" id="patient-name"></div> <!-- Typewriter -->
+            
+        </div>
+    </section>
+
+    <!-- Frame 4 -->
+    <section class="p4" id="frame4">
+        <h1></h1>
+        <div class="kenburns-wrapper"> <!-- Ken Burns group -->
+            <img src="img/HosR2.jpeg" class="kenburns" id="ken1" />
+            <img src="img/HosR.jpg" class="kenburns" id="ken2" />
+            <img src="img/Needle.jpg" class="kenburns" id="ken3" />
+            <img src="img/Seniorpic.jpg" class="kenburns" id="ken4" />
+            <img src="img/Ambu.jpeg" class="kenburns" id="ken5" />
+            <img src="img/Emergency.jpg" class="kenburns" id="ken6" />
+            <img src="img/HosB.jpg" class="kenburns" id="ken7" />
+        </div>
+    </section>
+
+    <!-- Frame 5 -->
+    <section class="p5" id="frame5">
+        <div class="blood-drip-zone" id="frame5-blood"></div> <!-- Drip zone -->
+        <h1>SECOND CHANCE</h1>
+        <p>The SIU Board decided to give Swango another chance as long as he repeated another year of OB/GYN rotations, which he completed and took an Internship at Ohio State University Medical Center in 1983.</p>
+    </section>
+
+    <!-- Frame 6 -->
+    <section class="p6" id="frame6">
+      <img src="img/OSU.jpg" class="OSU" id="OSU" />
+    </section>
+
+    <!-- Frame 7 -->
+    <section class="p7" id="frame7">
+      <h1>TENSION AT OHIO STATE</h1>
+      <p>As time went by at Ohio State for Swango, people reported finding him injecting unknown substances into patients. Many cases these patients would soon fall ill. An investigation was launched, where no wrongdoing was found. Swango was not re-hired after finishing his internship.</p>
+    </section>
+
+    <!-- Frame 8 -->
+  <section class="p8" id="frame8">
+    <h1>RETURN TO QUINCY</h1>
+
+    <div class="frame8-block left-align">
+      <p id="p1">Swango returns to his Ambulance technician job in his hometown of Quincy, Illinois.</p>
+      <img src="img/Ambu2.jpg" class="ambu2 flash-behind" id="ambu2" />
+    </div>
+
+    <div class="frame8-block right-align">
+      <img src="img/arsen.jpeg" class="arsen flash-behind" id="arsen" />
+      <p id="p2">Co-Workers of Swango noticed when he would prepare the office coffee, they would feel ill. This was reported to authorities, the investigation found that he was putting arsenic into the coffee.</p>
+    </div>
+
+    <div class="frame8-block left-align">
+      <p id="p3">In August of 1985, Swango was charged with 6 counts of aggravated battery, resulting in 5 years of prison.</p>
+      <img src="img/MSCourt.jpg" class="MS flash-behind" id="MS" />
+    </div>
+  </section>
+
+  <!-- Frame 9 -->
+  <section class="p9" id="frame9">
+    <h1>FIVE YEARS LATER...</h1>
+    <div class="clock" id="analog-clock">
+    <div class="hand hour" id="hour-hand"></div>
+    <div class="hand minute" id="minute-hand"></div>
+</div>
+
+
+    <p>Upon Swango’s release, he was determined to continue working in the medical field despite his troubling past. In an effort to hide his identity and make a fresh start, he legally changed his name to Daniel J. Adams. This new identity allowed him to apply for positions without raising immediate suspicion, giving him another opportunity to reenter the healthcare system unnoticed.</p>
+  </section>
+
+
+<!-- Frame 10 -->
+<section id="frame10">
+    <h1>TRAVEL AGENDA</h1>
+    <p>After his release, Swango moved from place to place, leaving behind a pattern of suspicious deaths and misconduct:</p>
+
+ 
+<div class="timeline-container">
+    <ul class="travel-list">
+        <li><span class="underline-animate"><strong>Newport News, Virginia (1989–1991):</strong> Lab technician; coworkers fell mysteriously ill. Girlfriend Kristin Kinney died by suspicious suicide.</span></li>
+        <li><span class="underline-animate"><strong>Sioux Falls, South Dakota (1992):</strong> Faked credentials to gain medical residency; dismissed when past crimes uncovered.</span></li>
+        <li><span class="underline-animate"><strong>Stony Brook, New York (1993):</strong> Psychiatric resident at VA hospital; fired after criminal record revealed.</span></li>
+        <li><span class="underline-animate"><strong>Zimbabwe (1994–1995):</strong> Hospital patients died under his care; suspected poisoning incident involving landlord.</span></li>
+        <li><span class="underline-animate"><strong>Zambia and Namibia (1995–1997):</strong> Continued medical work under unclear circumstances.</span></li>
+        <li><span class="underline-animate"><strong>Saudi Arabia (1997):</strong> Hired at Dhahran hospital; Needs to travel back to U.S. to obtain travel visa.</span></li>
+    </ul>
+    
+  </div>
+  
+</section>
+
+<!-- Frame 11 -->
+<section id="frame11">
+    <h1>THE ARREST OF MICHAEL SWANGO</h1>
+    <div class="image-prison-wrapper">
+        <img src="img/Farrest.jpg" id="Farrest">
+        <div class="prison-bars-container" id="prisonBars">
+          <div class="prison-bar"></div>
+          <div class="prison-bar"></div>
+          <div class="prison-bar"></div>
+          <div class="prison-bar"></div>
+          <div class="prison-bar"></div>
+          <div class="prison-bar"></div>
+        </div>
+      </div>
+      
+      
+    <p>In 1997, while attempting to secure a visa to continue practicing abroad, Swango returned to the United States. Federal authorities, who had been building a case against him for fraud and suspected murders, arrested him at Chicago’s O’Hare International Airport. Following a detailed investigation, Swango pleaded guilty to charges of fraud and later to the murder of multiple patients. He was sentenced to life in prison without the possibility of parole, bringing an end to his decades-long trail of deception, malpractice, and death.</p>
+
+</section>
+
+
+
+
+
+</div> <!-- End wrapper -->
+
+<script>
+   window.addEventListener("load", () => {
+  setTimeout(() => {
+    gsap.to("#loading-screen", {
+      opacity: 0,
+      duration: 1,
+      onComplete: () => {
+        document.getElementById("loading-screen").style.display = "none";
+      }
+    });
+  }, 4000); // Adjust to your desired loading time
+});
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const numDropsPerSection = 10;
+        const sections = document.querySelectorAll("section");
+
+        sections.forEach(section => {
+            section.style.position = "relative";
+
+            for (let i = 0; i < numDropsPerSection; i++) {
+                let drop = document.createElement("div");
+                drop.classList.add("blood-drop");
+
+                let sizeCategory = Math.random();
+                if (sizeCategory < 0.3) drop.classList.add("small");
+                else if (sizeCategory < 0.7) drop.classList.add("medium");
+                else drop.classList.add("large");
+
+                let rotation = Math.random() * 360;
+                drop.style.transform = `rotate(${rotation}deg)`;
+
+                let opacity = 0.5 + Math.random() * 0.4;
+                drop.style.opacity = opacity;
+
+                let sectionWidth = section.clientWidth;
+                let sectionHeight = section.clientHeight;
+
+                drop.style.left = Math.random() * sectionWidth + "px";
+                drop.style.top = Math.random() * sectionHeight + "px";
+
+                section.appendChild(drop);
+            }
+        });
+
+        $(".blood-drop").hover(function () {
+            $(this).css({ "transform": "scale(1.2) rotate(15deg)", "opacity": "1" });
+        }, function () {
+            $(this).css({ "transform": "scale(1) rotate(0deg)", "opacity": "0.7" });
+        });
+
+        gsap.from("#frame1 h1, #frame1 h2, #frame1 p, #frame1 img", {
+            opacity: 0, y: 50, duration: 1, stagger: 0.2, ease: "power2.out",
+            scrollTrigger: { trigger: "#frame1", start: "top 80%", toggleActions: "play none none none" }
+        });
+
+        gsap.from("#frame2 img", {
+            opacity: 0, x: -100, duration: 1, ease: "power2.out",
+            scrollTrigger: { trigger: "#frame2", start: "top 75%", toggleActions: "play none none none" }
+        });
+
+        gsap.from("#frame2 h1, #frame2 p", {
+            opacity: 0, x: 100, duration: 1, delay: 0.3, ease: "power2.out",
+            scrollTrigger: { trigger: "#frame2", start: "top 75%", toggleActions: "play none none none" }
+        });
+
+        gsap.from("#frame3 h1, #frame3 p, #frame3 img", {
+            opacity: 0, y: 50, duration: 1, stagger: 0.3, ease: "power2.out",
+            scrollTrigger: { trigger: "#frame3", start: "top 70%", toggleActions: "play none none none" }
+        });
+
+        let nameText = "Jane Doe";
+        let nameElement = document.getElementById("patient-name");
+        nameElement.innerHTML = "";
+
+        gsap.to(nameElement, {
+            width: "auto", duration: 2, ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#frame3", start: "top 60%", toggleActions: "play none none none"
+            },
+            onStart: function () {
+                let i = 0;
+                let interval = setInterval(() => {
+                    nameElement.innerHTML = nameText.slice(0, i) + "<span class='cursor'>|</span>";
+                    i++;
+                    if (i > nameText.length) {
+                        clearInterval(interval);
+                        document.querySelector(".cursor").remove();
+                    }
+                }, 700);
+            }
+        });
+
+        gsap.to(".checkmark", {
+            opacity: 1, scale: 1, duration: 0.5, stagger: 1, ease: "power2.out",
+            scrollTrigger: { trigger: "#frame3", start: "top 60%", toggleActions: "play none none none" }
+        });
+
+        const kenburnsImages = gsap.utils.toArray(".kenburns");
+
+        kenburnsImages.forEach((img, index) => {
+            gsap.fromTo(img,
+                {
+                    scale: 1.1,
+                    xPercent: index % 2 === 0 ? -10 : 10,
+                    yPercent: index % 2 === 0 ? -5 : 5,
+                    opacity: 0
+                },
+                {
+                    scale: 1,
+                    xPercent: 0,
+                    yPercent: 0,
+                    opacity: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#frame4",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true,
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        const bloodZone = document.getElementById("frame5-blood");
+        const numDrips = 8;
+
+        for (let i = 0; i < numDrips; i++) {
+            const drop = document.createElement("div");
+            drop.classList.add("blood-drop");
+
+            const sizeCategory = Math.random();
+            if (sizeCategory < 0.3) drop.classList.add("small");
+            else if (sizeCategory < 0.7) drop.classList.add("medium");
+            else drop.classList.add("large");
+
+            drop.style.position = "absolute";
+            drop.style.left = `${Math.random() * 100}%`;
+            drop.style.top = `${Math.random() * 40}px`;
+            bloodZone.appendChild(drop);
+
+            const trail = document.createElement("div");
+            trail.classList.add("blood-trail");
+            trail.style.left = drop.style.left;
+            trail.style.top = drop.style.top;
+            trail.style.height = "0px";
+            trail.style.position = "absolute";
+            const dropWidth = drop.offsetWidth || 10;
+            trail.style.width = dropWidth + "px";
+            
+
+            const dropHeight = 300 + Math.random() * 100;
+
+            gsap.set(trail, {
+                height: 0,
+                opacity: 0
+            });
+           
+            bloodZone.appendChild(trail);
+
+            gsap.to(trail, {
+                height: `${dropHeight}px`,
+                opacity: 1,
+                duration: 2,
+                ease: "power1.inOut",
+                scrollTrigger: {
+                    trigger: "#frame5",
+                    start: "top bottom",
+                    end: "bottom center",
+                    scrub: true
+                }
+            });
+
+            gsap.to(drop, {
+                y: dropHeight,
+                opacity: 1,
+                duration: 2,
+                ease: "power1.inOut",
+                scrollTrigger: {
+                    trigger: "#frame5",
+                    start: "top center",
+                    end: "#frame6 top center",
+                    scrub: true
+                }
+            });
+        }
+
+        // Analog Clock Scroll Animation
+        gsap.to("#hour-hand", {
+            rotation: 1800,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#frame9",
+                start: "top center",
+                end: "bottom center",
+                scrub: true
+            }
+        });
+
+        gsap.to("#minute-hand", {
+            rotation: 9000,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#frame9",
+                start: "top center",
+                end: "bottom center",
+                scrub: true
+            }
+        });
+        // Frame 5
+gsap.from("#frame5 h1, #frame5 p", {
+    opacity: 0,
+    x: -50,
+    duration: 1,
+    stagger: 0.2,
+    scrollTrigger: {
+        trigger: "#frame5",
+        start: "top 80%",
+        toggleActions: "play none none none"
+    }
+});
+
+document.addEventListener("mousemove", function (e) {
+  const drop = document.createElement("div");
+  drop.className = "trail-drop";
+  drop.style.left = `${e.pageX}px`;
+  drop.style.top = `${e.pageY}px`;
+  document.body.appendChild(drop);
+
+  // Clean up after 1 second
+  setTimeout(() => drop.remove(), 1000);
+});
+
+
+// Frame 6
+gsap.from("#OSU", {
+    opacity: 0,
+    scale: 0.8,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#frame6",
+        start: "top 90%",
+        toggleActions: "play none none none"
+    }
+});
+
+// Frame 7
+gsap.from("#frame7 h1, #frame7 p", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.3,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#frame7",
+        start: "top 80%",
+        toggleActions: "play none none none"
+    }
+});
+
+// Frame 8 - animate each block
+gsap.utils.toArray(".frame8-block").forEach((block, index) => {
+    gsap.from(block, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: block,
+            start: "top 85%",
+            toggleActions: "play none none none"
+        }
+    });
+});
+
+// Frame 9
+gsap.from("#frame9 h1, #frame9 p", {
+    opacity: 0,
+    y: 30,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#frame9",
+        start: "top 80%",
+        toggleActions: "play none none none"
+    }
+});
+
+// Frame 10
+gsap.from("#frame10 h1, #frame10 p, .travel-list li", {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#frame10",
+        start: "top 80%",
+        toggleActions: "play none none none"
+    }
+});
+
+// Frame 11
+gsap.from("#frame11 h1, #frame11 p", {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#frame11",
+        start: "top 80%",
+        toggleActions: "play none none none"
+    }
+});
+gsap.utils.toArray(".underline-animate").forEach((el, i) => {
+    ScrollTrigger.create({
+        trigger: el,
+        start: "top 75%",
+        onEnter: () => {
+            setTimeout(() => {
+                el.classList.add("draw-underline");
+            }, i * 300); // 150ms delay per item
+        }
+    });
+});
+gsap.to(".prison-bar", {
+  height: "100%",
+  duration: 1.2,
+  ease: "power2.out",
+  stagger: 0.15,
+  scrollTrigger: {
+    trigger: "#frame11",
+    start: "top center",
+    toggleActions: "play none none none"
+  }
+});
+
+
+
+
+
+
+    });
+</script>
+
+
+</body>
+</html>

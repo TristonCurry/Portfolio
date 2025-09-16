@@ -1,0 +1,110 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@400;700&display=swap');
+
+body {
+    background-color: black;
+    background-image: url('Back.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+
+h1, h2, h3 {
+    color: #FFE81F;
+    text-shadow: 0px 0px 10px #FFE81F;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+p {
+    color: #FFE81F;
+    font-size: 18px;
+    text-shadow: 0px 0px 5px #FFE81F;
+}
+
+
+.banner {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border: 2px solid #FFE81F;
+    box-shadow: 0px 0px 20px #FFE81F;
+    margin-bottom: 30px;
+}
+
+
+.content {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(255, 232, 31, 0.5);
+    text-align: center;
+}
+
+
+.content img {
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 232, 31, 0.7);
+    transition: 0.3s ease-in-out;
+    margin: 30px auto 40px;
+    display: block;
+}
+
+.content img:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 0px 30px rgba(255, 232, 31, 1);
+}
+
+
+#back, #next {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px 20px;
+    border: 2px solid #FFE81F;
+    color: #FFE81F;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    width: 150px;
+    box-shadow: 0px 0px 10px #FFE81F;
+    transition: 0.3s ease-in-out;
+}
+
+#back:hover, #next:hover {
+    background: #FFE81F;
+    box-shadow: 0px 0px 20px #FFE81F;
+}
+
+#back:hover h3, #next:hover h3 {
+    color: black;
+}
+
+
+#back h3, #next h3 {
+    margin: 0;
+    color: inherit;
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
